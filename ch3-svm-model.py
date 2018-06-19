@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 18 15:06:49 2018
+Created on Tue Jun 19 11:06:41 2018
 
 @author: devasenainupakutika
 """
@@ -9,7 +9,7 @@ Created on Mon Jun 18 15:06:49 2018
 from sklearn import datasets
 from sklearn.cross_validation import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap 
@@ -59,37 +59,16 @@ sc.fit(X_train) #Estimates sample mean and std deviation for each feature dimens
 X_train_std = sc.transform(X_train) #This then standardises the features using above estimated mean and std
 X_test_std = sc.transform(X_test)
 
-#Training Logistic Regression Model
-lr = LogisticRegression(C=1000.0,random_state=0)
-lr.fit(X_train_std,y_train)
+
+
+#Training using the Support Vector Machines
+svm = SVC(kernel='linear',C=1.0, random_state=0)
+svm.fit(X_train_std, y_train)
 
 X_combined_std = np.vstack((X_train_std,X_test_std))
 y_combined = np.hstack((y_train,y_test))
-plot_decision_regions(X_combined_std,y_combined,classifier=lr,test_idx=range(105,150))
-plt.xlabel('Petal length [standardized]')
-plt.ylabel('Petal width [standardized]')
+plot_decision_regions(X_combined_std, y_combined, classifier=svm,test_idx=range(105,150))
+plt.xlabel('Petal Length [standardized]')
+plt.ylabel('Petal Width [standardized]')
 plt.legend(loc='upper left')
 plt.show()
-
-#Predicting class-membership probability
-pr = lr.predict_proba(X_test_std[0,:].reshape(1,-1))
-print(pr)
-
-#Tackling overfitting via regularization
-weights, params = [], []
-for c in np.arange(-5,5):
-    lr = LogisticRegression(C=10.**c, random_state=0)
-    lr.fit(X_train_std, y_train)
-    weights.append(lr.coef_[1])
-    params.append(10.**c)
-    
-weights = np.array(weights)
-plt.plot(params,weights[:,0],label='Petal length')
-plt.plot(params,weights[:,1],linestyle='--',label='Petal width')
-plt.ylabel('Weight coefficient')
-plt.xlabel('C')
-plt.legend(loc="upper left")
-plt.xscale('log')
-plt.show()
-    
-    
