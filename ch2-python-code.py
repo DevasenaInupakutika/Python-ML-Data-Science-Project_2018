@@ -132,9 +132,9 @@ plt.show()
 
 #Adaline learning model with stochastic gradient descent, shuffle and computing weights and updating them after every sample
 ada = AdalineSGD(n_iter=15, eta=0.01, random_state=1)
-#ada.fit(X_std, y)
+ada.fit(X_std, y)
 #for online learning replacing with partial_fit
-ada.partial_fit(X_std[0, :], y[0])
+#ada.partial_fit(X_std[0, :], y[0])
 
 plot_decision_regions(X_std, y, classifier=ada)
 plt.title('Adaline - Stochastic Gradient Descent')

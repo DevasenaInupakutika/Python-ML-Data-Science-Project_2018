@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 18 15:06:49 2018
+Created on Fri Jun 22 15:38:08 2018
 
 @author: devasenainupakutika
 """
@@ -9,11 +9,11 @@ Created on Mon Jun 18 15:06:49 2018
 from sklearn import datasets
 from sklearn.cross_validation import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap 
 import numpy as np
+from  sklearn.ensemble  import RandomForestClassifier
+
 
 def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
 
@@ -44,11 +44,10 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
         X_test, y_test = X[test_idx,:], y[test_idx]
         plt.scatter(X_test[:,0],X_test[:,1],c='',edgecolor='black',alpha=1.0,linewidth=1,marker='o',s=100,label='test set')
 
-
 iris = datasets.load_iris()
 X = iris.data[:,[2,3]] #Only second and third feature columns
 y = iris.target
-print(y)
+
 #Splitting the dataset into training and test datasets
 #random state is for initial shuffling of training dataset after each epoch
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=0)
@@ -59,37 +58,23 @@ sc.fit(X_train) #Estimates sample mean and std deviation for each feature dimens
 X_train_std = sc.transform(X_train) #This then standardises the features using above estimated mean and std
 X_test_std = sc.transform(X_test)
 
-#Training Logistic Regression Model
-lr = LogisticRegression(C=1000.0,random_state=0)
-lr.fit(X_train_std,y_train)
 
-X_combined_std = np.vstack((X_train_std,X_test_std))
-y_combined = np.hstack((y_train,y_test))
-plot_decision_regions(X_combined_std,y_combined,classifier=lr,test_idx=range(105,150))
-plt.xlabel('Petal length [standardized]')
-plt.ylabel('Petal width [standardized]')
+#forest = RandomForestClassifier(criterion='gini',
+#                               random_state=1,
+#                                n_jobs=2)
+#            
+forest = RandomForestClassifier(criterion='entropy',
+                                n_estimators=10, 
+                                random_state=1,
+                                n_jobs=2)            
+forest.fit(X_train, y_train)
+
+plot_decision_regions(X_combined, y_combined, 
+                      classifier=forest, test_idx=range(105, 150))
+
+plt.xlabel('petal length [cm]')
+plt.ylabel('petal width [cm]')
 plt.legend(loc='upper left')
+plt.tight_layout()
+#plt.savefig('images/03_22.png', dpi=300)
 plt.show()
-
-#Predicting class-membership probability
-pr = lr.predict_proba(X_test_std[0,:].reshape(1,-1))
-print(pr)
-
-#Tackling overfitting via regularization
-weights, params = [], []
-for c in np.arange(-5,5):
-    lr = LogisticRegression(C=10.**c, random_state=0)
-    lr.fit(X_train_std, y_train)
-    weights.append(lr.coef_[1])
-    params.append(10.**c)
-    
-weights = np.array(weights)
-plt.plot(params,weights[:,0],label='Petal length')
-plt.plot(params,weights[:,1],linestyle='--',label='Petal width')
-plt.ylabel('Weight coefficient')
-plt.xlabel('C')
-plt.legend(loc="upper left")
-plt.xscale('log')
-plt.show()
-    
-    
