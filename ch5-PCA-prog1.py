@@ -6,7 +6,7 @@ Created on Fri Jun 29 18:19:41 2018
 @author: devasenainupakutika
 """
 
-#PCA implementation for dimensionality reduction step-by-step
+#PCA implementation for dimensionality reduction step-by-step as well as using scikit learn later
 
 #(I) Read the wine dataset and standardize it because PCA is sensitive to data scaling
 #Reading the wine dataset
