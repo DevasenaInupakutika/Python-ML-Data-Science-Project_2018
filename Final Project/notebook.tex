@@ -1,0 +1,1654 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Fitbit\_Data\_Analysis\_Model}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Predicting Health/ Fitness goals using consumer wearable
+sensing
+devices}\label{predicting-health-fitness-goals-using-consumer-wearable-sensing-devices}
+
+\section{by Devasena Inupakutika}\label{by-devasena-inupakutika}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}428}]:} \PY{c+c1}{\PYZsh{}Import Libraries}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+          \PY{o}{\PYZpc{}} \PY{n}{matplotlib} \PY{n}{inline}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{timedelta}
+          \PY{k+kn}{import} \PY{n+nn}{csv}
+          \PY{k+kn}{import} \PY{n+nn}{sys}\PY{o}{,} \PY{n+nn}{os}
+          \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{deque}
+\end{Verbatim}
+
+
+    \subsubsection{Analysis of Fitbit Wearable Device Data written to csv
+file}\label{analysis-of-fitbit-wearable-device-data-written-to-csv-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}473}]:} \PY{c+c1}{\PYZsh{}Read the date\PYZhy{}wise data from 5RJHGY\PYZus{}Fitbit.csv file}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fitbit\PYZhy{}5RJHGY\PYZhy{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}473}]:}          Date  Calories Burned  Distance  Floors  Minutes Sedentary  \textbackslash{}
+          0  2017-05-30             1681      2.15       0               1311   
+          1  2017-05-31             1892      3.29       0               1198   
+          2  2017-06-01             1986      3.92       0                810   
+          3  2017-06-02             1974      4.19       0                848   
+          4  2017-06-03             2168      5.98       0               1200   
+          
+             Minutes Lightly Active  Minutes Fairly Active  Minutes Very Active  \textbackslash{}
+          0                     117                      3                    9   
+          1                     226                      7                    1   
+          2                     218                     25                   23   
+          3                     165                     41                   28   
+          4                     142                     29                   69   
+          
+             Activity Calories    Sleep Start Time     Sleep End Time  Minutes Asleep  \textbackslash{}
+          0                467                 NaN                NaN             NaN   
+          1                779  2017-05-31 11:51PM  2017-06-01 6:04AM           368.0   
+          2                903                 NaN                NaN             NaN   
+          3                861  2017-06-02 12:04AM  2017-06-02 6:03AM           316.0   
+          4               1062                 NaN                NaN             NaN   
+          
+             Minutes Awake  Number of Awakenings  Time in Bed  Minutes REM Sleep  \textbackslash{}
+          0            NaN                   NaN          NaN                NaN   
+          1            4.0                   3.0        372.0                NaN   
+          2            NaN                   NaN          NaN                NaN   
+          3           37.0                   3.0        358.0                NaN   
+          4            NaN                   NaN          NaN                NaN   
+          
+             Minutes Light Sleep  Minutes Deep Sleep  Steps  
+          0                  NaN                 NaN   5230  
+          1                  NaN                 NaN   7986  
+          2                  NaN                 NaN   9714  
+          3                  NaN                 NaN  10235  
+          4                  NaN                 NaN  14556  
+\end{Verbatim}
+            
+    We can see missing values as represented by NaN above. Hence, counting
+the number of missing values per column.
+
+    \subsubsection{Data Preprocessing}\label{data-preprocessing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}430}]:} \PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}430}]:} Date                        0
+          Calories Burned             0
+          Distance                    0
+          Floors                      0
+          Minutes Sedentary           0
+          Minutes Lightly Active      0
+          Minutes Fairly Active       0
+          Minutes Very Active         0
+          Activity Calories           0
+          Sleep Start Time          317
+          Sleep End Time            317
+          Minutes Asleep            317
+          Minutes Awake             317
+          Number of Awakenings      317
+          Time in Bed               317
+          Minutes REM Sleep         399
+          Minutes Light Sleep       399
+          Minutes Deep Sleep        399
+          Steps                       0
+          dtype: int64
+\end{Verbatim}
+            
+    There are 317 and 399 i.e. all missing values in the sleep related
+columns of our dataset. Hence, filling with \emph{zero} for missing
+values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}431}]:} \PY{c+c1}{\PYZsh{} fill missing values with mean column values}
+          \PY{n}{df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} mark zero values as missing or NaN}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sleep Start Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sleep End Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes REM Sleep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Light Sleep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Deep Sleep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{df[\PYZsq{}Minutes Asleep\PYZsq{}].fillna(0,inplace=True)}
+          \PY{l+s+sd}{df[\PYZsq{}Minutes Awake\PYZsq{}].fillna(0,inplace=True)}
+          \PY{l+s+sd}{df[\PYZsq{}Number of Awakenings\PYZsq{}].fillna(0,inplace=True)}
+          \PY{l+s+sd}{df[\PYZsq{}Time in Bed\PYZsq{}].fillna(0,inplace=True)}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{c+c1}{\PYZsh{}df[[\PYZsq{}Sleep Start Time\PYZsq{},\PYZsq{}Sleep End Time\PYZsq{},\PYZsq{}Minutes Asleep\PYZsq{},\PYZsq{}Minutes Awake\PYZsq{},\PYZsq{}Number of Awakenings\PYZsq{},\PYZsq{}Time in Bed\PYZsq{},\PYZsq{}Minutes REM Sleep\PYZsq{},\PYZsq{}Minutes Light Sleep\PYZsq{},\PYZsq{}Minutes Deep Sleep\PYZsq{}]] = df[[\PYZsq{}Sleep Start Time\PYZsq{},\PYZsq{}Sleep End Time\PYZsq{},\PYZsq{}Minutes Asleep\PYZsq{},\PYZsq{}Minutes Awake\PYZsq{},\PYZsq{}Number of Awakenings\PYZsq{},\PYZsq{}Time in Bed\PYZsq{},\PYZsq{}Minutes REM Sleep\PYZsq{},\PYZsq{}Minutes Light Sleep\PYZsq{},\PYZsq{}Minutes Deep Sleep\PYZsq{}]].replace(0, np.NaN)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}df.isnull().sum()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}431}]:}          Date  Calories Burned  Distance  Floors  Minutes Sedentary  \textbackslash{}
+          0  2017-05-30             1681      2.15       0               1311   
+          1  2017-05-31             1892      3.29       0               1198   
+          2  2017-06-01             1986      3.92       0                810   
+          3  2017-06-02             1974      4.19       0                848   
+          4  2017-06-03             2168      5.98       0               1200   
+          
+             Minutes Lightly Active  Minutes Fairly Active  Minutes Very Active  \textbackslash{}
+          0                     117                      3                    9   
+          1                     226                      7                    1   
+          2                     218                     25                   23   
+          3                     165                     41                   28   
+          4                     142                     29                   69   
+          
+             Activity Calories    Sleep Start Time     Sleep End Time  Minutes Asleep  \textbackslash{}
+          0                467                   0                  0      248.304878   
+          1                779  2017-05-31 11:51PM  2017-06-01 6:04AM      368.000000   
+          2                903                   0                  0      248.304878   
+          3                861  2017-06-02 12:04AM  2017-06-02 6:03AM      316.000000   
+          4               1062                   0                  0      248.304878   
+          
+             Minutes Awake  Number of Awakenings  Time in Bed  Minutes REM Sleep  \textbackslash{}
+          0      21.829268              2.353659   271.182927                0.0   
+          1       4.000000              3.000000   372.000000                0.0   
+          2      21.829268              2.353659   271.182927                0.0   
+          3      37.000000              3.000000   358.000000                0.0   
+          4      21.829268              2.353659   271.182927                0.0   
+          
+             Minutes Light Sleep  Minutes Deep Sleep  Steps  
+          0                  0.0                 0.0   5230  
+          1                  0.0                 0.0   7986  
+          2                  0.0                 0.0   9714  
+          3                  0.0                 0.0  10235  
+          4                  0.0                 0.0  14556  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}432}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensions of the data collected for last 1 year + starting from May 30, 2017: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimensions of the data collected for last 1 year + starting from May 30, 2017:  (399, 19)
+
+    \end{Verbatim}
+
+    \subsubsection{Dropping the columns that are not
+required}\label{dropping-the-columns-that-are-not-required}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}433}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}434}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}434}]:}          Date  Calories Burned  Distance  Minutes Sedentary  \textbackslash{}
+          0  2017-05-30             1681      2.15               1311   
+          1  2017-05-31             1892      3.29               1198   
+          2  2017-06-01             1986      3.92                810   
+          3  2017-06-02             1974      4.19                848   
+          4  2017-06-03             2168      5.98               1200   
+          
+             Minutes Lightly Active  Minutes Fairly Active  Minutes Very Active  \textbackslash{}
+          0                     117                      3                    9   
+          1                     226                      7                    1   
+          2                     218                     25                   23   
+          3                     165                     41                   28   
+          4                     142                     29                   69   
+          
+             Activity Calories  Minutes Asleep  Minutes Awake  Number of Awakenings  \textbackslash{}
+          0                467      248.304878      21.829268              2.353659   
+          1                779      368.000000       4.000000              3.000000   
+          2                903      248.304878      21.829268              2.353659   
+          3                861      316.000000      37.000000              3.000000   
+          4               1062      248.304878      21.829268              2.353659   
+          
+             Time in Bed  Steps  
+          0   271.182927   5230  
+          1   372.000000   7986  
+          2   271.182927   9714  
+          3   358.000000  10235  
+          4   271.182927  14556  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}435}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensions of the cleaned dataset: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimensions of the cleaned dataset:  (399, 13)
+
+    \end{Verbatim}
+
+    \subsubsection{Exploratory Data
+Analysis}\label{exploratory-data-analysis}
+
+    \paragraph{Feature distributions}\label{feature-distributions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}436}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['Date', 'Calories Burned', 'Distance', 'Minutes Sedentary', 'Minutes Lightly Active', 'Minutes Fairly Active', 'Minutes Very Active', 'Activity Calories', 'Minutes Asleep', 'Minutes Awake', 'Number of Awakenings', 'Time in Bed', 'Steps']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}437}]:} \PY{c+c1}{\PYZsh{} Looking at the distributions corresponding to each numerical variable in the raw data}
+          \PY{n}{df}\PY{o}{.}\PY{n}{dtypes}
+          \PY{n}{h} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} \PY{n}{layout} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{xrot} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/raw\PYZhy{}data\PYZhy{}eda.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Initial Observations}\label{initial-observations}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Some of the data is zero: Reasons could be Fitbit is not worn, battery
+  discharge or not synced for 10 consecutive days (In this case: it is
+  mostly sleep data.)
+\item
+  Sedentary minutes are longer than activite minutes.
+\item
+  But majority calorie burn is due to activity calories which is some
+  exercise or continuous walking or workout.
+\item
+  On average sleep is around 4-5 hours.
+\item
+  Daily steps vary between 5000 to 16000 which is close to 9-10 miles.
+\end{enumerate}
+
+    \subsubsection{Looking at correlations}\label{looking-at-correlations}
+
+    \paragraph{Visualizing the important characteristics of a dataset:
+Observing pair-wise correlations between
+features}\label{visualizing-the-important-characteristics-of-a-dataset-observing-pair-wise-correlations-between-features}
+
+    Using the scatter plot below to see how the data is distributed and
+whether it has any outliers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}438}]:} \PY{c+c1}{\PYZsh{}sns.set(style=\PYZsq{}whitegrid\PYZsq{}, context=\PYZsq{}notebook\PYZsq{})}
+          \PY{n}{df\PYZus{}partial} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Sedentary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Calories Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Activity Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Asleep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Awakenings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Awake}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time in Bed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{axes} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{scatter\PYZus{}matrix}\PY{p}{(}\PY{n}{df\PYZus{}partial}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{diagonal}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kde}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{corr} \PY{o}{=} \PY{n}{df\PYZus{}partial}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{plt}\PY{o}{.}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{axes}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{k}{corr}[i,j], (0.8, 0.8), xycoords=\PYZsq{}axes fraction\PYZsq{}, ha=\PYZsq{}center\PYZsq{}, va=\PYZsq{}center\PYZsq{})
+          \PY{c+c1}{\PYZsh{}sns.pairplot(df[cols], size=2.5)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/pairwise\PYZhy{}correlation\PYZhy{}matrix.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/devasenainupakutika/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:3: FutureWarning: pandas.scatter\_matrix is deprecated, use pandas.plotting.scatter\_matrix instead
+  This is separate from the ipykernel package so we can avoid doing imports until
+/Users/devasenainupakutika/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:5: FutureWarning: Method .as\_matrix will be removed in a future version. Use .values instead.
+  """
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Further Data Munging}\label{further-data-munging}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}439}]:} \PY{c+c1}{\PYZsh{} Data cleaning and manipulation}
+          
+          \PY{c+c1}{\PYZsh{} Create a weekday label which says which day of the week}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{weekday}\PY{p}{(}\PY{p}{)} \PY{p}{,} \PY{n}{na\PYZus{}action} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{date} \PY{p}{,} \PY{n}{na\PYZus{}action} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{month} \PY{p}{,} \PY{n}{na\PYZus{}action} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Percentage of awake time to time in bed (related to efficiency)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sleep\PYZus{}awake\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Awake}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time in Bed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}440}]:} \PY{c+c1}{\PYZsh{} Function to clean up plots}
+          \PY{k}{def} \PY{n+nf}{prepare\PYZus{}plot\PYZus{}area}\PY{p}{(}\PY{n}{ax}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Remove plot frame lines}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+              \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+              \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)} 
+              
+              \PY{c+c1}{\PYZsh{} X and y ticks on bottom and left}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xaxis}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tick\PYZus{}bottom}\PY{p}{(}\PY{p}{)}  
+              \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tick\PYZus{}left}\PY{p}{(}\PY{p}{)}  
+              
+          \PY{c+c1}{\PYZsh{} Defining a color pattern that is pleasing}
+          \PY{n}{colrcode} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{31}\PY{p}{,} \PY{l+m+mi}{119}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{127}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                       \PY{p}{(}\PY{l+m+mi}{44}\PY{p}{,} \PY{l+m+mi}{160}\PY{p}{,} \PY{l+m+mi}{44}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{214}\PY{p}{,} \PY{l+m+mi}{39}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                       \PY{p}{(}\PY{l+m+mi}{148}\PY{p}{,} \PY{l+m+mi}{103}\PY{p}{,} \PY{l+m+mi}{189}\PY{p}{)}\PY{p}{,}  \PY{p}{(}\PY{l+m+mi}{140}\PY{p}{,} \PY{l+m+mi}{86}\PY{p}{,} \PY{l+m+mi}{75}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                       \PY{p}{(}\PY{l+m+mi}{227}\PY{p}{,} \PY{l+m+mi}{119}\PY{p}{,} \PY{l+m+mi}{194}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{127}\PY{p}{,} \PY{l+m+mi}{127}\PY{p}{,} \PY{l+m+mi}{127}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                       \PY{p}{(}\PY{l+m+mi}{188}\PY{p}{,} \PY{l+m+mi}{189}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{23}\PY{p}{,} \PY{l+m+mi}{190}\PY{p}{,} \PY{l+m+mi}{207}\PY{p}{)}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{colrcode}\PY{p}{)}\PY{p}{)}\PY{p}{:}  
+              \PY{n}{r}\PY{p}{,} \PY{n}{g}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{colrcode}\PY{p}{[}\PY{n}{i}\PY{p}{]}  
+              \PY{n}{colrcode}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{r} \PY{o}{/} \PY{l+m+mf}{255.}\PY{p}{,} \PY{n}{g} \PY{o}{/} \PY{l+m+mf}{255.}\PY{p}{,} \PY{n}{b} \PY{o}{/} \PY{l+m+mf}{255.}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Data Interaction}\label{data-interaction}
+
+    Here, we look at the trend shared by predictors, i.e the features that
+will be used to predict Steps. The correlation matrix is computed and
+represented as heatmap below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}441}]:} \PY{c+c1}{\PYZsh{}Plotting correlation matrix as heatmap}
+          \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Calories Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Sedentary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Lightly Active}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Fairly Active}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Very Active}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Activity Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Asleep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Awake}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Awakenings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time in Bed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{cm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+          \PY{n}{hm} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{cm}\PY{p}{,}
+                           \PY{n}{cbar}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                           \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                           \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                           \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.2f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{5}\PY{p}{\PYZcb{}}\PY{p}{,}
+                           \PY{n}{yticklabels}\PY{o}{=}\PY{n}{cols}\PY{p}{,}
+                           \PY{n}{xticklabels}\PY{o}{=}\PY{n}{cols}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/corr\PYZus{}heatmap.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From above heatmap, we can observe some strong correlation between some
+sleep predictors. Distance is strongly correlated to Steps and both are
+inter-correlated to Calories Burned and Activity Calories and also
+Minutes Very Active, which indicates that my main calorie burn is due to
+exercise or workout.
+
+    \subsubsection{Insights from Data
+Analysis}\label{insights-from-data-analysis}
+
+    My Fitbit Flex2 data shows some strong correlation between predictors
+such as Distance, Calories burned, Activity Calories and Minutes very
+active (1.00, 0.97, 0.96 and 0.88 correlation).
+
+    \paragraph{Relation between Steps and Predictors are as shown in below
+graphs:}\label{relation-between-steps-and-predictors-are-as-shown-in-below-graphs}
+
+    \subparagraph{Steps Vs Predictors (Distance, Calories Burned and
+Activity Calories) All in
+One}\label{steps-vs-predictors-distance-calories-burned-and-activity-calories-all-in-one}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}442}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{x\PYZus{}vars}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Calories Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Activity Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}vars}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/allinonestepsvspred.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{Step Variations, Sleep Minutes and Sleep Inefficiency
+based on Week
+Days}\label{step-variations-sleep-minutes-and-sleep-inefficiency-based-on-week-days}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}443}]:} \PY{c+c1}{\PYZsh{} Looking at variations based on weekday}
+          \PY{n}{steps\PYZus{}weekday} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+          \PY{n}{sleep\PYZus{}minutes\PYZus{}asleep\PYZus{}med} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Asleep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+          \PY{n}{sleep\PYZus{}eff} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes Asleep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time in Bed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+          \PY{n}{sl} \PY{o}{=} \PY{n}{sleep\PYZus{}eff}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}444}]:} \PY{c+c1}{\PYZsh{} Median number of steps}
+          \PY{n}{fig}\PY{p}{,}\PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+          
+          \PY{n}{ct} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{sca}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{n}{ct}\PY{p}{]}\PY{p}{)}
+          \PY{n}{steps\PYZus{}weekday}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{n}{colrcode}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median number of steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Median number of steps walked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{prepare\PYZus{}plot\PYZus{}area}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{n}{ct}\PY{p}{]}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Median number of minutes slept}
+          \PY{n}{ct} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{sca}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{n}{ct}\PY{p}{]}\PY{p}{)}
+          \PY{n}{sleep\PYZus{}minutes\PYZus{}asleep\PYZus{}med}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{n}{colrcode}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median number of hours slept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily median number of hours slept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{prepare\PYZus{}plot\PYZus{}area}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{n}{ct}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{ct} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{sca}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{n}{ct}\PY{p}{]}\PY{p}{)}
+          \PY{n}{sl}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{n}{colrcode}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median sleep inefficiency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sleep Inefficiency }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{prepare\PYZus{}plot\PYZus{}area}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{n}{ct}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/Steps\PYZhy{}sleep\PYZhy{}weekday.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{Correlation between Step Count and Sleep
+Inefficiency}\label{correlation-between-step-count-and-sleep-inefficiency}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}445}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sleep\PYZus{}awake\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{n}{colrcode}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Awake time/total time in bed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sleep inefficiency vs step count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/sleepineff\PYZhy{}steps.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Steps Prediction and
+Evaluation}\label{steps-prediction-and-evaluation}
+
+    Since the target variable is \textbf{Steps} here. In order to predict
+\textbf{Steps}, we split our data into train (70\%) and test (30\%)
+datasets.
+
+    \paragraph{Simple Linear Regression
+Model}\label{simple-linear-regression-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}446}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+          
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.30}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Starting it with one feature currently called \PYZsq{}Distance\PYZsq{} because of correlation r =1 and estimating the coefficient}
+          \PY{c+c1}{\PYZsh{} create X and y}
+          \PY{n}{feature\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{feature\PYZus{}cols}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{Steps}
+          
+          \PY{c+c1}{\PYZsh{} instantiate and fit}
+          \PY{n}{slr} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{slr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the coefficients}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{slr}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{slr}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} create a fitted model}
+          \PY{n}{lm1} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps \PYZti{} Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the coefficients}
+          \PY{n}{lm1}\PY{o}{.}\PY{n}{params}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+215.19331101352327
+[2349.72926778]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}446}]:} Intercept     215.193311
+          Distance     2349.729268
+          dtype: float64
+\end{Verbatim}
+            
+    \paragraph{Using the model for
+prediction:}\label{using-the-model-for-prediction}
+
+y = 215.1933 + 2349.729 * x
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}447}]:} \PY{c+c1}{\PYZsh{}For distance of 5 miles}
+          \PY{n}{slr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}447}]:} array([11963.83964993])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}448}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} We have to create a DataFrame since the Statsmodels formula interface expects it}
+          \PY{n}{X\PYZus{}new} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} predict for a new observation}
+          \PY{n}{lm1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}new}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}448}]:} 0    11963.83965
+          dtype: float64
+\end{Verbatim}
+            
+    \paragraph{Plotting the least squares
+line}\label{plotting-the-least-squares-line}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}449}]:} \PY{k}{def} \PY{n+nf}{lin\PYZus{}regplot}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{model}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{return} \PY{k+kc}{None}
+              
+          \PY{n}{lin\PYZus{}regplot}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{slr}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Distance in miles for the day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Steps for the day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/lin\PYZhy{}reg.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}450}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{x\PYZus{}vars}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Calories Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Activity Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}vars}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/stepsvspred\PYZhy{}model.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Assessing variable importance using linear regression and
+test p-values for each
+predictor}\label{assessing-variable-importance-using-linear-regression-and-test-p-values-for-each-predictor}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}451}]:} \PY{c+c1}{\PYZsh{} print the p\PYZhy{}values for the model coefficients for Distance Predictor}
+          \PY{n}{lm1}\PY{o}{.}\PY{n}{pvalues}
+          
+          \PY{c+c1}{\PYZsh{}p\PYZhy{}values for other variables and predictors}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS for Calories Burned\PYZsh{}\PYZsh{}\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Removing space between columns}
+          \PY{n}{df}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Calories Burned}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Calories\PYZus{}Burned}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Activity Calories}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Activity\PYZus{}Calories}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minutes Very Active}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minutes\PYZus{}Very\PYZus{}Active}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minutes Awake}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minutes\PYZus{}Awake}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time in Bed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time\PYZus{}in\PYZus{}Bed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minutes Asleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minutes\PYZus{}Asleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}452}]:} \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}452}]:}            Date  Calories\_Burned  Distance  Minutes Sedentary  \textbackslash{}
+          0    2017-05-30             1681      2.15               1311   
+          1    2017-05-31             1892      3.29               1198   
+          2    2017-06-01             1986      3.92                810   
+          3    2017-06-02             1974      4.19                848   
+          4    2017-06-03             2168      5.98               1200   
+          5    2017-06-04             1327      0.00               1440   
+          6    2017-06-05             1326      0.00               1440   
+          7    2017-06-06             1326      0.00               1440   
+          8    2017-06-07             1326      0.00               1440   
+          9    2017-06-08             1326      0.00               1440   
+          10   2017-06-09             1326      0.00               1440   
+          11   2017-06-10             1326      0.00               1440   
+          12   2017-06-11             1326      0.00               1440   
+          13   2017-06-12             1326      0.00               1440   
+          14   2017-06-13             1326      0.00               1440   
+          15   2017-06-14             1326      0.00               1440   
+          16   2017-06-15             1326      0.00               1440   
+          17   2017-06-16             1326      0.00               1440   
+          18   2017-06-17             1326      0.00               1440   
+          19   2017-06-18             1326      0.00               1440   
+          20   2017-06-19             1326      0.00               1440   
+          21   2017-06-20             1326      0.00               1440   
+          22   2017-06-21             1326      0.00               1440   
+          23   2017-06-22             1326      0.00               1440   
+          24   2017-06-23             1326      0.00               1440   
+          25   2017-06-24             1520      0.96               1268   
+          26   2017-06-25             1674      1.40                864   
+          27   2017-06-26             1819      3.18                903   
+          28   2017-06-27             2020      4.48                773   
+          29   2017-06-28             1675      2.06                902   
+          ..          {\ldots}              {\ldots}       {\ldots}                {\ldots}   
+          369  2018-06-03             2121      4.51                968   
+          370  2018-06-04             2108      4.14               1186   
+          371  2018-06-05             2176      5.97               1180   
+          372  2018-06-06             2091      5.39               1147   
+          373  2018-06-07             2013      4.32               1200   
+          374  2018-06-08             2239      6.40               1159   
+          375  2018-06-09             2068      5.37               1234   
+          376  2018-06-10             1958      3.32               1140   
+          377  2018-06-11             2194      5.81               1155   
+          378  2018-06-12             2075      5.49               1181   
+          379  2018-06-13             1998      4.41               1219   
+          380  2018-06-14             1954      4.05               1197   
+          381  2018-06-15             2212      6.39               1195   
+          382  2018-06-16             1987      4.68               1248   
+          383  2018-06-17             2035      4.14               1150   
+          384  2018-06-18             2029      3.69               1198   
+          385  2018-06-19             2168      5.91               1201   
+          386  2018-06-20             1927      3.86               1227   
+          387  2018-06-21             1999      3.80               1190   
+          388  2018-06-22             2199      6.29               1195   
+          389  2018-06-23             2006      4.92               1243   
+          390  2018-06-24             1844      2.34               1167   
+          391  2018-06-25             2066      4.99               1209   
+          392  2018-06-26             1947      4.09               1226   
+          393  2018-06-27             2148      5.54               1175   
+          394  2018-06-28             1924      3.88               1234   
+          395  2018-06-29             2061      5.01               1200   
+          396  2018-06-30             1956      3.71               1196   
+          397  2018-07-01             1818      2.33               1126   
+          398  2018-07-02             1612      4.85                888   
+          
+               Minutes Lightly Active  Minutes Fairly Active  Minutes\_Very\_Active  \textbackslash{}
+          0                       117                      3                    9   
+          1                       226                      7                    1   
+          2                       218                     25                   23   
+          3                       165                     41                   28   
+          4                       142                     29                   69   
+          5                         0                      0                    0   
+          6                         0                      0                    0   
+          7                         0                      0                    0   
+          8                         0                      0                    0   
+          9                         0                      0                    0   
+          10                        0                      0                    0   
+          11                        0                      0                    0   
+          12                        0                      0                    0   
+          13                        0                      0                    0   
+          14                        0                      0                    0   
+          15                        0                      0                    0   
+          16                        0                      0                    0   
+          17                        0                      0                    0   
+          18                        0                      0                    0   
+          19                        0                      0                    0   
+          20                        0                      0                    0   
+          21                        0                      0                    0   
+          22                        0                      0                    0   
+          23                        0                      0                    0   
+          24                        0                      0                    0   
+          25                       97                      0                    0   
+          26                      198                      0                    0   
+          27                      142                      9                   22   
+          28                      181                     15                   38   
+          29                      123                     13                    7   
+          ..                      {\ldots}                    {\ldots}                  {\ldots}   
+          369                     321                     14                   20   
+          370                     182                     56                   16   
+          371                     154                     37                   69   
+          372                     161                     21                   41   
+          373                     155                     68                   17   
+          374                     201                     24                   56   
+          375                     128                     20                   58   
+          376                     282                      4                   14   
+          377                     180                     43                   62   
+          378                     177                     19                   63   
+          379                     166                     22                   33   
+          380                     210                     11                   22   
+          381                     131                     27                   87   
+          382                     123                     13                   56   
+          383                     254                     13                   23   
+          384                     158                     65                   19   
+          385                     157                     13                   69   
+          386                     173                     12                   28   
+          387                     180                     55                   15   
+          388                     149                     35                   61   
+          389                     113                     32                   52   
+          390                     273                      0                    0   
+          391                     143                     25                   63   
+          392                     150                     37                   27   
+          393                     188                     22                   55   
+          394                     151                     23                   32   
+          395                     153                     37                   50   
+          396                     196                     16                   32   
+          397                     251                      0                    0   
+          398                      98                     14                   53   
+          
+               Activity\_Calories  Minutes\_Asleep  Minutes\_Awake  Number of Awakenings  \textbackslash{}
+          0                  467      248.304878      21.829268              2.353659   
+          1                  779      368.000000       4.000000              3.000000   
+          2                  903      248.304878      21.829268              2.353659   
+          3                  861      316.000000      37.000000              3.000000   
+          4                 1062      248.304878      21.829268              2.353659   
+          5                    0      248.304878      21.829268              2.353659   
+          6                    0      248.304878      21.829268              2.353659   
+          7                    0      248.304878      21.829268              2.353659   
+          8                    0      248.304878      21.829268              2.353659   
+          9                    0      248.304878      21.829268              2.353659   
+          10                   0      248.304878      21.829268              2.353659   
+          11                   0      248.304878      21.829268              2.353659   
+          12                   0      248.304878      21.829268              2.353659   
+          13                   0      248.304878      21.829268              2.353659   
+          14                   0      248.304878      21.829268              2.353659   
+          15                   0      248.304878      21.829268              2.353659   
+          16                   0      248.304878      21.829268              2.353659   
+          17                   0      248.304878      21.829268              2.353659   
+          18                   0      248.304878      21.829268              2.353659   
+          19                   0      248.304878      21.829268              2.353659   
+          20                   0      248.304878      21.829268              2.353659   
+          21                   0      248.304878      21.829268              2.353659   
+          22                   0      248.304878      21.829268              2.353659   
+          23                   0      248.304878      21.829268              2.353659   
+          24                   0      248.304878      21.829268              2.353659   
+          25                 284       71.000000       4.000000              1.000000   
+          26                 527      248.304878      21.829268              2.353659   
+          27                 652      364.000000      40.000000              3.000000   
+          28                 909      432.000000      13.000000              8.000000   
+          29                 481      248.304878      21.829268              2.353659   
+          ..                 {\ldots}             {\ldots}            {\ldots}                   {\ldots}   
+          369               1106      103.000000      14.000000              3.000000   
+          370               1002      248.304878      21.829268              2.353659   
+          371               1072      248.304878      21.829268              2.353659   
+          372                949       70.000000       0.000000              0.000000   
+          373                888      248.304878      21.829268              2.353659   
+          374               1150      248.304878      21.829268              2.353659   
+          375                896      248.304878      21.829268              2.353659   
+          376                891      248.304878      21.829268              2.353659   
+          377               1108      248.304878      21.829268              2.353659   
+          378                966      248.304878      21.829268              2.353659   
+          379                853      248.304878      21.829268              2.353659   
+          380                831      248.304878      21.829268              2.353659   
+          381               1093      248.304878      21.829268              2.353659   
+          382                824      248.304878      21.829268              2.353659   
+          383                948      248.304878      21.829268              2.353659   
+          384                906      248.304878      21.829268              2.353659   
+          385               1042      248.304878      21.829268              2.353659   
+          386                776      248.304878      21.829268              2.353659   
+          387                878      248.304878      21.829268              2.353659   
+          388               1081      248.304878      21.829268              2.353659   
+          389                838      248.304878      21.829268              2.353659   
+          390                749      248.304878      21.829268              2.353659   
+          391                933      248.304878      21.829268              2.353659   
+          392                796      248.304878      21.829268              2.353659   
+          393               1046      248.304878      21.829268              2.353659   
+          394                771      248.304878      21.829268              2.353659   
+          395                939      248.304878      21.829268              2.353659   
+          396                820      248.304878      21.829268              2.353659   
+          397                703       60.000000       3.000000              1.000000   
+          398                785      248.304878      21.829268              2.353659   
+          
+               Time\_in\_Bed  Steps  weekday  \textbackslash{}
+          0     271.182927   5230        1   
+          1     372.000000   7986        2   
+          2     271.182927   9714        3   
+          3     358.000000  10235        4   
+          4     271.182927  14556        5   
+          5     271.182927      0        6   
+          6     271.182927      0        0   
+          7     271.182927      0        1   
+          8     271.182927      0        2   
+          9     271.182927      0        3   
+          10    271.182927      0        4   
+          11    271.182927      0        5   
+          12    271.182927      0        6   
+          13    271.182927      0        0   
+          14    271.182927      0        1   
+          15    271.182927      0        2   
+          16    271.182927      0        3   
+          17    271.182927      0        4   
+          18    271.182927      0        5   
+          19    271.182927      0        6   
+          20    271.182927      0        0   
+          21    271.182927      0        1   
+          22    271.182927      0        2   
+          23    271.182927      0        3   
+          24    271.182927      0        4   
+          25     75.000000   2374        5   
+          26    271.182927   3467        6   
+          27    404.000000   7615        0   
+          28    447.000000  11094        1   
+          29    271.182927   5106        2   
+          ..           {\ldots}    {\ldots}      {\ldots}   
+          369   117.000000  11174        6   
+          370   271.182927  10020        0   
+          371   271.182927  14487        1   
+          372    70.000000  13134        2   
+          373   271.182927  10693        3   
+          374   271.182927  15348        4   
+          375   271.182927  12093        5   
+          376   271.182927   8223        6   
+          377   271.182927  14391        0   
+          378   271.182927  13319        1   
+          379   271.182927  10915        2   
+          380   271.182927  10030        3   
+          381   271.182927  15212        4   
+          382   271.182927  10547        5   
+          383   271.182927   9857        6   
+          384   271.182927   9144        0   
+          385   271.182927  14589        1   
+          386   271.182927   9507        2   
+          387   271.182927   9405        3   
+          388   271.182927  14758        4   
+          389   271.182927  11126        5   
+          390   271.182927   5803        6   
+          391   271.182927  12309        0   
+          392   271.182927  10179        1   
+          393   271.182927  13716        2   
+          394   271.182927   9619        3   
+          395   271.182927  12361        4   
+          396   271.182927   8747        5   
+          397    63.000000   5780        6   
+          398   271.182927  10766        0   
+          
+                                                             day  month  sleep\_awake\_per  
+          0    <built-in method date of datetime.datetime obj{\ldots}      5         8.049647  
+          1    <built-in method date of datetime.datetime obj{\ldots}      5         1.075269  
+          2    <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          3    <built-in method date of datetime.datetime obj{\ldots}      6        10.335196  
+          4    <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          5    <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          6    <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          7    <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          8    <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          9    <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          10   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          11   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          12   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          13   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          14   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          15   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          16   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          17   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          18   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          19   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          20   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          21   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          22   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          23   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          24   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          25   <built-in method date of datetime.datetime obj{\ldots}      6         5.333333  
+          26   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          27   <built-in method date of datetime.datetime obj{\ldots}      6         9.900990  
+          28   <built-in method date of datetime.datetime obj{\ldots}      6         2.908277  
+          29   <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          ..                                                 {\ldots}    {\ldots}              {\ldots}  
+          369  <built-in method date of datetime.datetime obj{\ldots}      6        11.965812  
+          370  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          371  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          372  <built-in method date of datetime.datetime obj{\ldots}      6         0.000000  
+          373  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          374  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          375  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          376  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          377  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          378  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          379  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          380  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          381  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          382  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          383  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          384  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          385  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          386  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          387  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          388  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          389  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          390  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          391  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          392  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          393  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          394  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          395  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          396  <built-in method date of datetime.datetime obj{\ldots}      6         8.049647  
+          397  <built-in method date of datetime.datetime obj{\ldots}      7         4.761905  
+          398  <built-in method date of datetime.datetime obj{\ldots}      7         8.049647  
+          
+          [399 rows x 17 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}453}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS for calories\PYZus{}burned \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} create a fitted model}
+          \PY{n}{lm11} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps \PYZti{} Calories\PYZus{}Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the coefficients}
+          \PY{n}{lm11}\PY{o}{.}\PY{n}{params}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} We have to create a DataFrame since the Statsmodels formula interface expects it}
+          \PY{n}{X\PYZus{}new1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Calories\PYZus{}Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2000}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} predict for a new observation}
+          \PY{n}{lm11}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}new1}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} print the p\PYZhy{}values for the model coefficients for Distance Predictor}
+          \PY{n}{lm11}\PY{o}{.}\PY{n}{pvalues}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}453}]:} Intercept          4.626848e-183
+          Calories\_Burned    4.064068e-238
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}454}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS for Activity\PYZus{}Calories \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} create a fitted model}
+          \PY{n}{lm12} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps \PYZti{} Activity\PYZus{}Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the coefficients}
+          \PY{n}{lm12}\PY{o}{.}\PY{n}{params}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} We have to create a DataFrame since the Statsmodels formula interface expects it}
+          \PY{n}{X\PYZus{}new2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Activity\PYZus{}Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} predict for a new observation}
+          \PY{n}{lm12}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}new2}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} print the p\PYZhy{}values for the model coefficients for Calories Burned Predictor}
+          \PY{n}{lm12}\PY{o}{.}\PY{n}{pvalues}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}454}]:} Intercept             2.119603e-09
+          Activity\_Calories    2.865917e-214
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}455}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS for Minutes\PYZus{}Very\PYZus{}Active \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} create a fitted model}
+          \PY{n}{lm13} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps \PYZti{} Minutes\PYZus{}Very\PYZus{}Active}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the coefficients}
+          \PY{n}{lm13}\PY{o}{.}\PY{n}{params}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} We have to create a DataFrame since the Statsmodels formula interface expects it}
+          \PY{n}{X\PYZus{}new3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes\PYZus{}Very\PYZus{}Active}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{60}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} predict for a new observation}
+          \PY{n}{lm13}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}new3}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} print the p\PYZhy{}values for the model coefficients for Minutes very active Predictor}
+          \PY{n}{lm13}\PY{o}{.}\PY{n}{pvalues}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}455}]:} Intercept               4.930023e-84
+          Minutes\_Very\_Active    5.748666e-128
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}456}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS for sleep\PYZus{}awake\PYZus{}per \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} create a fitted model}
+          \PY{n}{lm14} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steps \PYZti{} sleep\PYZus{}awake\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the coefficients}
+          \PY{n}{lm14}\PY{o}{.}\PY{n}{params}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} We have to create a DataFrame since the Statsmodels formula interface expects it}
+          \PY{n}{X\PYZus{}new4} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sleep\PYZus{}awake\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{8.00}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} predict for a new observation}
+          \PY{n}{lm14}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}new4}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} print the p\PYZhy{}values for the model coefficients for sleep\PYZus{}awake\PYZus{}per Predictor}
+          \PY{n}{lm14}\PY{o}{.}\PY{n}{pvalues}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}456}]:} Intercept          1.000395e-14
+          sleep\_awake\_per    2.147004e-01
+          dtype: float64
+\end{Verbatim}
+            
+    \paragraph{How well model fits the
+data?}\label{how-well-model-fits-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}457}]:} \PY{n}{slr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}457}]:} 0.990445703687681
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}458}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} STATSMODELS \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+          \PY{c+c1}{\PYZsh{} print the R\PYZhy{}squared value for the model}
+          \PY{n}{lm1}\PY{o}{.}\PY{n}{rsquared}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}458}]:} 0.990445703687681
+\end{Verbatim}
+            
+    \paragraph{Multiple Linear Regression}\label{multiple-linear-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}459}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}460}]:} \PY{c+c1}{\PYZsh{} create X and y}
+          \PY{n}{feature\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Calories\PYZus{}Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Activity\PYZus{}Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sleep\PYZus{}awake\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{feature\PYZus{}cols}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{Steps}
+          
+          \PY{c+c1}{\PYZsh{} instantiate and fit}
+          \PY{n}{slr2} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{slr2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print the coefficients}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{slr2}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{slr2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} pair the feature names with the coefficients}
+          \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{feature\PYZus{}cols}\PY{p}{,} \PY{n}{slr2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{slr2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-1057.9283169964856
+[2.05827285e+03 7.02975896e-01 1.20758555e+00 1.15121071e+01]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}460}]:} 0.9918567000076867
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}461}]:} \PY{n}{lm14}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}461}]:} <class 'statsmodels.iolib.summary.Summary'>
+          """
+                                      OLS Regression Results                            
+          ==============================================================================
+          Dep. Variable:                  Steps   R-squared:                       0.004
+          Model:                            OLS   Adj. R-squared:                  0.001
+          Method:                 Least Squares   F-statistic:                     1.544
+          Date:                Sat, 07 Jul 2018   Prob (F-statistic):              0.215
+          Time:                        15:54:25   Log-Likelihood:                -3909.8
+          No. Observations:                 399   AIC:                             7824.
+          Df Residuals:                     397   BIC:                             7831.
+          Df Model:                           1                                         
+          Covariance Type:            nonrobust                                         
+          ===================================================================================
+                                coef    std err          t      P>|t|      [0.025      0.975]
+          -----------------------------------------------------------------------------------
+          Intercept        7987.4807    992.741      8.046      0.000    6035.794    9939.168
+          sleep\_awake\_per   151.5168    121.922      1.243      0.215     -88.177     391.211
+          ==============================================================================
+          Omnibus:                       17.710   Durbin-Watson:                   1.140
+          Prob(Omnibus):                  0.000   Jarque-Bera (JB):               18.239
+          Skew:                          -0.493   Prob(JB):                     0.000110
+          Kurtosis:                       2.645   Cond. No.                         37.5
+          ==============================================================================
+          
+          Warnings:
+          [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+          """
+\end{Verbatim}
+            
+    \paragraph{Evaluating Multiple Regression
+Model}\label{evaluating-multiple-regression-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}462}]:} \PY{n}{feature\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Calories\PYZus{}Burned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Activity\PYZus{}Calories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sleep\PYZus{}awake\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{feature\PYZus{}cols}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{Steps}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.30}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} instantiate and fit}
+          \PY{n}{slr3} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{slr3}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{slr3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{slr3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2 train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE train: 150409.453, test: 168564.853
+R\^{}2 train: 0.992, test: 0.991
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}463}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{,}  \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}train}\PY{p}{,}
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{,}  \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}test}\PY{p}{,}
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{limegreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hlines}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{30000}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/eval\PYZus{}multiple\PYZus{}linear\PYZus{}regression\PYZus{}model\PYZhy{}Residual\PYZhy{}Plot.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Using Regularized Methods for Regression (to tackle problems
+of
+Overfitting)}\label{using-regularized-methods-for-regression-to-tackle-problems-of-overfitting}
+
+    \paragraph{Ridge Regression Model (L2 Penalized
+Model)}\label{ridge-regression-model-l2-penalized-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}464}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}465}]:} \PY{n}{ridge}\PY{o}{=}\PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+          \PY{n}{ridge}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2 train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{,}  \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}train}\PY{p}{,}
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{,}  \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}test}\PY{p}{,}
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{limegreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hlines}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{30000}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/Ridge\PYZhy{}Residual\PYZhy{}Plot.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{slr3}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE train: 150634.735, test: 167937.944
+R\^{}2 train: 0.992, test: 0.991
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}465}]:} 0.9918277596036082
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}466}]:} \PY{n}{ridge}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}466}]:} 0.991829385760251
+\end{Verbatim}
+            
+    \paragraph{LASSO Regression Model}\label{lasso-regression-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}467}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Lasso}
+          \PY{n}{lasso}\PY{o}{=}\PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+          \PY{n}{lasso}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2 train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{,}  \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}train}\PY{p}{,}
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{,}  \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}test}\PY{p}{,}
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{limegreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hlines}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{30000}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/Lasso\PYZhy{}Residual\PYZhy{}Plot.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{lasso}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE train: 150634.735, test: 167937.944
+R\^{}2 train: 0.992, test: 0.991
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}467}]:} 0.9918299540652497
+\end{Verbatim}
+            
+    \paragraph{Random Forest Regression}\label{random-forest-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}468}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}
+          \PY{n}{forest} \PY{o}{=} \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{forest}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{o}{=}\PY{n}{forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{o}{=}\PY{n}{forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2 train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{,}  
+                      \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,}
+                      \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{,}  
+                      \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}test}\PY{p}{,} 
+                      \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{limegreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,}
+                      \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hlines}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{30000}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{30000}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/forest\PYZus{}regression\PYZus{}plot.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE train: 27928.392, test: 205092.993
+R\^{}2 train: 0.999, test: 0.990
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_76_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
